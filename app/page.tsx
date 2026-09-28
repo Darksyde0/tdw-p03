@@ -1,8 +1,9 @@
 export default function Home() {
+  const message: string = "Hello";
+
   return (
     <main>
-      <h1>Welcome to My TDW Application</h1>
-
+      <h1>{message}</h1>
     </main>
   );
 }
