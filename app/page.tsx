@@ -1,5 +1,5 @@
 export default function Home() {
-  const message: any = "Hello";
+  const message: string = "Hello";
 
   return (
     <main>
