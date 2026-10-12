@@ -1,7 +1,9 @@
+
 name: CI
 
 on:
   push:
+    branches: [main]
   pull_request:
 
 jobs:
@@ -36,4 +38,22 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm test
+      - run: npm test -- --run
+
+  build:
+    needs: [lint, format, test]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-artifact@v5
+        with:
+          name: site
+          path: out
+          if-no-files-found: error
